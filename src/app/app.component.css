@@ -1,0 +1,18 @@
+div #title {
+    width: 336px;
+    margin: auto;
+    text-align: justify;
+}
+
+#title{
+  margin-bottom: 60px;
+}
+
+#board > * {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+#board {
+  text-align: center;
+}
