@@ -1,6 +1,13 @@
 export enum Direction {
-    UP = 38,
-    DOWN = 39,
-    LEFT = 40,
-    RIGHT = 41
-}
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
+
+export const KEYCODE = {
+    37: Direction.LEFT,
+    38: Direction.UP,
+    39: Direction.RIGHT,
+    40: Direction.DOWN
+};

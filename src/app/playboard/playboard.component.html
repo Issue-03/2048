@@ -1,1 +1,35 @@
-<p>playboard works!</p>
+<div class="flex">
+    <div id="fullboard">
+        <div id="score-bar">
+            <h3 id="score">Score: {{score !== -1 ? score : 0}}</h3>
+        </div>
+        <div id="playboard">
+            <div id="game-over" *ngIf="isGameOver">
+                <div id="result">
+                    <h4 *ngIf="!isGameCompleted">Sorry, The game is over!</h4>
+                    <h4 *ngIf="isGameCompleted"> Congratulations, You won the game!</h4>
+                    <button (click)="restartPlayboard()">Restart</button>
+                </div>
+            </div>
+            <app-tile *ngFor="let tile of tiles" [tile]="tile"></app-tile>
+            <div>
+                <button id="new-game" (click)="onSaveScore()">Save game</button>
+                <button id="new-game" (click)="restartPlayboard()">New game</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="leaderboard">
+        <h3>LEADERBOARD - Last Top 10 Scores</h3>
+        <table style="width:100%">
+            <tr>
+                <th>Rank</th>
+                <th>Score</th>
+            </tr>
+            <tr *ngFor="let score of lastTenScores; let i = index">
+                <td>{{ i+1 }}.</td>
+                <td>{{ score }}</td>
+            </tr>
+        </table>
+    </div>
+</div>
