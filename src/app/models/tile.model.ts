@@ -16,6 +16,7 @@ export class Tile {
         this._value = value;
     }
 
+    // set merged status on single tile
     merge(tile: Tile): boolean {
         let value = tile.value;
         if (!value || this.wasTileMerged || tile.wasTileMerged) return false;
@@ -30,6 +31,7 @@ export class Tile {
         return true;
     }
 
+    // reset merge status
     resetMerged() {
         this.wasTileMerged = false;
     }

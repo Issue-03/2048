@@ -1,11 +1,14 @@
-div #title {
-    width: 336px;
-    margin: auto;
-    text-align: justify;
+.flex {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
-#title{
-  margin-bottom: 60px;
+div#title {
+  width: 50%;
+  margin: auto;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 #board > * {
@@ -15,4 +18,8 @@ div #title {
 
 #board {
   text-align: center;
+}
+
+#desc {
+  color: rgb(16, 34, 138);
 }

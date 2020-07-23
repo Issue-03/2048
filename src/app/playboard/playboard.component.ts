@@ -25,6 +25,7 @@ export class PlayboardComponent implements OnInit {
     this.refreshLastTenScores();
   }
 
+  // Keyboard controls handler
   @HostListener('window:keyup', ['$event'])
   handleKeyboardControls(event: KeyboardEvent) {
     const direction = KEYCODE[event.keyCode];

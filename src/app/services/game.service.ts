@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Tile } from '../models/tile.model';
 import { Direction } from '../models/direction';
-import { MOVE_HANDLER } from '../models/move.handler';
+import { MOVE_CONTROLLER } from '../util/move.controller';
 
 @Injectable({
   providedIn: 'root'
@@ -94,7 +94,7 @@ export class GameService {
   }
 
   moveTiles(direction: Direction): Observable<any> {
-    return MOVE_HANDLER[direction](direction === Direction.LEFT || direction === Direction.RIGHT ? this.columns : this.rows)
+    return MOVE_CONTROLLER[direction](direction === Direction.LEFT || direction === Direction.RIGHT ? this.columns : this.rows)
       .map((mergedScore: number) => { this.score += mergedScore; return this.score; });
   }
 

@@ -6,21 +6,11 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/pairwise';
 
-import { Direction } from './direction';
-import { Tile } from './tile.model';
-
-// calculates score after merging the tiles
-function operation(entry1: Tile[], entry2: Tile[]): number {
-    let mergeScore = 0;
-    if (entry1[0].merge(entry2[0])) mergeScore += entry1[0].value;
-    if (entry1[1].merge(entry2[1])) mergeScore += entry1[1].value;
-    if (entry1[2].merge(entry2[2])) mergeScore += entry1[2].value;
-    if (entry1[3].merge(entry2[3])) mergeScore += entry1[3].value;
-    return mergeScore;
-}
+import { Direction } from '../models/direction';
+import { Tile } from '../models/tile.model';
 
 // to merge the  tiles 
-function merge(operands: Tile[][][]): Observable<any> {
+function mergeTiles(operands: Tile[][][]): Observable<any> {
     return Observable.from(operands)
         .mergeMap(operand => {
             let delayTime = 0;
@@ -29,34 +19,44 @@ function merge(operands: Tile[][][]): Observable<any> {
                 return Observable.of(pair).delay(delayTime);
             });
         })
-        .map(([op1, op2]) => operation(op2, op1));
+        .map(([op1, op2]) => calculateScores(op2, op1));
+}
+
+// calculates score after merging the tiles
+function calculateScores(entry1: Tile[], entry2: Tile[]): number {
+    let mergeScore = 0;
+    if (entry1[0].merge(entry2[0])) mergeScore += entry1[0].value;
+    if (entry1[1].merge(entry2[1])) mergeScore += entry1[1].value;
+    if (entry1[2].merge(entry2[2])) mergeScore += entry1[2].value;
+    if (entry1[3].merge(entry2[3])) mergeScore += entry1[3].value;
+    return mergeScore;
 }
 
 // reset the merged tiles
-function resetMerge(entites: Tile[][]) {
+function resetMergedTiles(entites: Tile[][]) {
     entites.forEach(tiles => tiles.forEach(tile => tile.resetMerged()));
 }
 
 // handles the move of the player by merging tiles
-export const MOVE_HANDLER: { [x: number]: (entry: Tile[][]) => Observable<any> } = {
+export const MOVE_CONTROLLER: { [x: number]: (entry: Tile[][]) => Observable<any> } = {
     [Direction.UP]: (rows: Tile[][]): Observable<any> => {
-        resetMerge(rows);
+        resetMergedTiles(rows);
         const operands = [[rows[1], rows[0]], [rows[2], rows[1], rows[0]], [rows[3], rows[2], rows[1], rows[0]]];
-        return merge(operands);
+        return mergeTiles(operands);
     },
     [Direction.DOWN]: (rows: Tile[][]): Observable<any> => {
-        resetMerge(rows);
+        resetMergedTiles(rows);
         const operands = [[rows[2], rows[3]], [rows[1], rows[2], rows[3]], [rows[0], rows[1], rows[2], rows[3]]];
-        return merge(operands);
+        return mergeTiles(operands);
     },
     [Direction.LEFT]: (columns: Tile[][]): Observable<any> => {
-        resetMerge(columns);
+        resetMergedTiles(columns);
         const operands = [[columns[1], columns[0]], [columns[2], columns[1], columns[0]], [columns[3], columns[2], columns[1], columns[0]]];
-        return merge(operands);
+        return mergeTiles(operands);
     },
     [Direction.RIGHT]: (columns: Tile[][]): Observable<any> => {
-        resetMerge(columns);
+        resetMergedTiles(columns);
         const operands = [[columns[2], columns[3]], [columns[1], columns[2], columns[3]], [columns[0], columns[1], columns[2], columns[3]]];
-        return merge(operands);
+        return mergeTiles(operands);
     }
 };

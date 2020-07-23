@@ -10,10 +10,5 @@
 body {
   background-color: #dcf0ed3d;
   color: #5d658d;
-  position: absolute;
-  top: 30%;
-  left: 0;
-  right: 0;
-  transform: translate(0, -30%);
   text-align: center;
 }

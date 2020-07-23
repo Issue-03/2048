@@ -1,3 +1,20 @@
+@keyframes merge {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  
+  50% {
+    -webkit-transform: scale(1.4);
+    transform: scale(1.4);
+  }
+  
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
 #tile {
   width: 80px;
   height: 80px;
@@ -90,24 +107,4 @@ div#tile-value {
 #tile.color-super {
   background: #235952;
   color: #f9f6f2;
-}
-
-@keyframes merge {
-  0% {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-  }
-  
-  50% {
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2);
-  }
-  
-  100% {
-    -webkit-transform: scale(1);
-    -ms-transform: scale(1);
-    transform: scale(1);
-  }
 }
