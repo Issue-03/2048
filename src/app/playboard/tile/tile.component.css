@@ -1,115 +1,113 @@
-#cell {
-    width: 80px;
-    height: 80px;
-    background-color: rgb(205, 193, 180);
-    display: inline-block;
-    vertical-align: middle;
-    margin: 2px;
-    position: relative;
-    border-radius: 4px;
-    color: transparent;
+#tile {
+  width: 80px;
+  height: 80px;
+  background-color: #d6e0df91;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 2px;
+  position: relative;
+  border-radius: 4px;
+  color: transparent;
+}
+
+#tile:not(.empty) {
+  transition: all 0.1s cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+div#tile-value {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 20px;
+  line-height: 32px;
+  height: 30px;
+  margin: auto;
+  text-align: center;
+}
+
+#tile.merged {
+  -webkit-animation: merge 0.2s ease-out normal;
+  animation: merge 0.2s ease-out normal;
+  z-index: 99;
+}
+
+#tile.color-2 {
+  background: #dffdff;
+  color: black;
+}
+#tile.color-4 {
+  background: #b4e4ec;
+  color: black;
+}
+
+#tile.color-8 {
+  background: #b3c1c2; 
+  color: #161514;
+}
+
+#tile.color-16 {
+  background: #88b0b3; 
+  color: #141413;
+}
+
+#tile.color-32 {
+  background: #ffd7b4; 
+  color: #1a1918;
+}
+
+#tile.color-64 {
+  background: #f6c295; 
+  color: #3f3c38;
+}
+
+#tile.color-128 {
+  background: #c38b59;
+  color: #1f1e1c;
+}
+
+#tile.color-256 {
+  background: #c77934;
+  color: #1a1918;
+}
+
+#tile.color-512 {
+  background: #f08e7b;
+  color: #33312e;
+}
+
+#tile.color-1024 {
+  background: #bb5e4c;
+  color: #f0e9e3;
+}
+
+#tile.color-2048 {
+  background: #c84930;
+  color: #ebdddd;
+}
+
+#tile.color-super {
+  background: #235952;
+  color: #f9f6f2;
+}
+
+@keyframes merge {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
   }
   
-  #cell:not(.empty) {
-    transition: all 0.1s cubic-bezier(0.2, 0, 0.1, 1);
+  50% {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
   }
   
-  div#cell-value {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    font-size: 20px;
-    line-height: 32px;
-    height: 30px;
-    margin: auto;
-    text-align: center;
+  100% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
   }
-  
-  #cell.merged {
-    -webkit-animation: merge 0.2s ease-out normal;
-    animation: merge 0.2s ease-out normal;
-    z-index: 99;
-  }
-  
-  #cell.color-2 {
-    background: #eee4da;
-    color: black;
-  }
-  
-  #cell.color-4 {
-    background: #ede0c8;
-    color: black;
-  }
-  
-  #cell.color-8 {
-    color: #f9f6f2;
-    background: #f2b179; 
-  }
-  
-  #cell.color-16 {
-    color: #f9f6f2;
-    background: #f59563; 
-  }
-  
-  #cell.color-32 {
-    color: #f9f6f2;
-    background: #f67c5f; 
-  }
-  
-  #cell.color-64 {
-    color: #f9f6f2;
-    background: #f65e3b; 
-  }
-  
-  #cell.color-128 {
-    color: #f9f6f2;
-    background: #edcf72;
-  }
-  
-  #cell.color-256 {
-    color: #f9f6f2;
-    background: #edcc61;
-  }
-  
-  #cell.color-512 {
-    color: #f9f6f2;
-    background: #edc850;
-  }
-  
-  #cell.color-1024 {
-    color: #f9f6f2;
-    background: #edc53f;
-  }
-  
-  #cell.color-2048 {
-    color: #f9f6f2;
-    background: #edc22e;
-  }
-  
-  #cell.color-super {
-    color: #f9f6f2;
-    background: #3c3a32;
-  }
-  
-  @keyframes merge {
-    0% {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1);
-    }
-  
-    50% {
-      -webkit-transform: scale(1.2);
-      -ms-transform: scale(1.2);
-      transform: scale(1.2);
-    }
-  
-    100% {
-      -webkit-transform: scale(1);
-      -ms-transform: scale(1);
-      transform: scale(1);
-    }
-  }
-  
+}

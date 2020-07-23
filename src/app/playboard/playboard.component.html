@@ -1,7 +1,7 @@
 <div class="flex">
     <div id="fullboard">
         <div id="score-bar">
-            <h3 id="score">Score: {{score !== -1 ? score : 0}}</h3>
+            <h3 id="score">Current Score: {{score !== -1 ? score : 0}}</h3>
         </div>
         <div id="playboard">
             <div id="game-over" *ngIf="isGameOver">
@@ -12,9 +12,9 @@
                 </div>
             </div>
             <app-tile *ngFor="let tile of tiles" [tile]="tile"></app-tile>
-            <div>
-                <button id="new-game" (click)="onSaveScore()">Save game</button>
-                <button id="new-game" (click)="restartPlayboard()">New game</button>
+            <div id="btn-wrapper">
+                <button id="save" class="btn" (click)="onSaveScore()">Save game</button>
+                <button id="new" class="btn" (click)="restartPlayboard()">New game</button>
             </div>
         </div>
     </div>

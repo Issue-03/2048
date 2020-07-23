@@ -1,15 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 * {
   font-family: sans-serif;
-  outline-style:none;
-  box-shadow:none;
-  border-color:transparent;
   user-select: none;
+  outline-style:none;
+  border-color:transparent;
+  box-shadow:none;
 }
 
 body {
-  background: #faf8ef;
-  color: #776e65;
+  background-color: #dcf0ed3d;
+  color: #5d658d;
   position: absolute;
   top: 30%;
   left: 0;

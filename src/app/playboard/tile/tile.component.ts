@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Tile } from 'src/app/models/tile.model';
 
 @Component({
@@ -6,13 +6,10 @@ import { Tile } from 'src/app/models/tile.model';
   templateUrl: './tile.component.html',
   styleUrls: ['./tile.component.css']
 })
-export class TileComponent implements OnInit {
+export class TileComponent {
   @Input() tile: Tile;
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   get class(): string {
     const base = `color-${this.tile.value}`;

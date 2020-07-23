@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "GAME2048": {
+    "2048": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/GAME2048",
+            "outputPath": "dist/2048",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -62,18 +62,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "GAME2048:build"
+            "browserTarget": "2048:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "GAME2048:build:production"
+              "browserTarget": "2048:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "GAME2048:build"
+            "browserTarget": "2048:build"
           }
         },
         "test": {
@@ -110,15 +110,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "GAME2048:serve"
+            "devServerTarget": "2048:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "GAME2048:serve:production"
+              "devServerTarget": "2048:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "GAME2048"
+  "defaultProject": "2048"
 }

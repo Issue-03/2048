@@ -1,6 +1,3 @@
-import { Direction } from './direction';
-import { Tile } from './tile.model';
-
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/of';
@@ -9,6 +6,10 @@ import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/pairwise';
 
+import { Direction } from './direction';
+import { Tile } from './tile.model';
+
+// calculates score after merging the tiles
 function operation(entry1: Tile[], entry2: Tile[]): number {
     let mergeScore = 0;
     if (entry1[0].merge(entry2[0])) mergeScore += entry1[0].value;
@@ -18,6 +19,7 @@ function operation(entry1: Tile[], entry2: Tile[]): number {
     return mergeScore;
 }
 
+// to merge the  tiles 
 function merge(operands: Tile[][][]): Observable<any> {
     return Observable.from(operands)
         .mergeMap(operand => {
@@ -30,10 +32,12 @@ function merge(operands: Tile[][][]): Observable<any> {
         .map(([op1, op2]) => operation(op2, op1));
 }
 
+// reset the merged tiles
 function resetMerge(entites: Tile[][]) {
     entites.forEach(tiles => tiles.forEach(tile => tile.resetMerged()));
 }
 
+// handles the move of the player by merging tiles
 export const MOVE_HANDLER: { [x: number]: (entry: Tile[][]) => Observable<any> } = {
     [Direction.UP]: (rows: Tile[][]): Observable<any> => {
         resetMerge(rows);
