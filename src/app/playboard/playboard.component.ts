@@ -64,8 +64,9 @@ export class PlayboardComponent implements OnInit {
   refreshLastTenScores() {
     this.lastTenScores = this.gameService.lastTenScores;
     if (this.lastTenScores.length > 10) {
-      this.lastTenScores = this.lastTenScores.splice(this.lastTenScores.length - 10, 10).sort((a, b) => b - a);
+      this.lastTenScores = this.lastTenScores.splice(this.lastTenScores.length - 10, 10);
     }
+    this.lastTenScores = this.lastTenScores.sort((a, b) => b - a);
   }
 
   onSaveScore() {
