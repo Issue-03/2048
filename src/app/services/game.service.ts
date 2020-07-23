@@ -118,7 +118,9 @@ export class GameService {
 
   saveData(score: number, key = "lastTenScores") {
     if (localStorage) {
-      this.lastTenScores = JSON.parse(localStorage.getItem(key));
+      if (key in localStorage) {
+        this.lastTenScores = JSON.parse(localStorage.getItem(key));
+      }
       this.lastTenScores.push(score);
       localStorage.setItem(key, JSON.stringify(this.lastTenScores));
     } else {
