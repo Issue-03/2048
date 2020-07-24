@@ -25,10 +25,8 @@ export class PlayboardComponent implements OnInit {
     this.refreshLastTenScores();
   }
 
-  // Keyboard controls handler
-  @HostListener('window:keyup', ['$event'])
-  handleKeyboardControls(event: KeyboardEvent) {
-    const direction = KEYCODE[event.keyCode];
+  // handles the direction of player's move
+  handleParticularDirection(direction: any) {
     let isMoveSuccess = false;
     if (this.isGameOver || direction === undefined) return;
     this.gameService.moveTiles(direction).subscribe((mergedScore: number) => {
@@ -39,6 +37,19 @@ export class PlayboardComponent implements OnInit {
       this.score = this.gameService.score;
       this.isGameOver = this.gameService.isGameOver;
     });
+  }
+
+  // Keyboard controls handler
+  @HostListener('window:keyup', ['$event'])
+  handleKeyboardControls(event: KeyboardEvent) {
+    const direction = KEYCODE[event.keyCode];
+    this.handleParticularDirection(direction);
+  }
+
+  // Button controls
+  handleButtonControls(keyCode: number) {
+    const direction = KEYCODE[keyCode];
+    this.handleParticularDirection(direction);
   }
 
   initializePlayboard() {

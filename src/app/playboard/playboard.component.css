@@ -57,6 +57,28 @@ div#playboard, div#score, div#score-bar {
   text-align: left;
 }
 
+.ctrls {
+  padding-top: 5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn-ctrl {
+  padding: 1rem;
+  margin: 0 0.4rem 0.8rem 0.4rem;
+  border: 1px solid #385850;
+  border-radius: 10px;
+  background-color: #e1ffc2;
+  color: #092532;
+  text-align: center;
+  font-weight: bold;
+}
+
+.btn-ctrl:hover {
+  opacity: 0.7;
+}
+
 #game-over {
   position: absolute;
   left: 0;
@@ -99,9 +121,9 @@ div#result {
   width: 70%;
 }
 
-#leaderboard {
+/* #leaderboard {
   margin-left: 2rem;
-} 
+}  */
 
 table, th, td {
   border: 2px solid rgb(1, 14, 70);
