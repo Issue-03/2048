@@ -3,7 +3,7 @@
         <div id="score-bar">
             <h3 id="score">Current Score: {{score !== -1 ? score : 0}}</h3>
         </div>
-        <div id="playboard">
+        <div id="playboard" (swipe)="handleMouseSwipe($event)">
             <div id="game-over" *ngIf="isGameOver">
                 <div id="result">
                     <h4 *ngIf="!isGameCompleted">Sorry, The game is over!</h4>
