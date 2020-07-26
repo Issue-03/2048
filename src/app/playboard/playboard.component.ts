@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 
 import { GameService } from '../services/game.service';
-import { KEYCODE } from '../models/direction';
+import { KEYCODE, Direction } from '../models/direction';
 import { Tile } from '../models/tile.model';
 
 @Component({
@@ -50,6 +50,17 @@ export class PlayboardComponent implements OnInit {
   handleButtonControls(keyCode: number) {
     const direction = KEYCODE[keyCode];
     this.handleParticularDirection(direction);
+  }
+
+  handleMouseSwipe(event) {
+    const directionX = Math.abs(event.deltaX) > 40 ? (event.deltaX > 0 ? Direction.RIGHT : Direction.LEFT) : null;
+    const directionY = Math.abs(event.deltaY) > 40 ? (event.deltaY > 0 ? Direction.DOWN : Direction.UP) : null;
+    if (directionY || directionY == 0)
+      this.handleParticularDirection(directionY);
+    else if (directionX)
+      this.handleParticularDirection(directionX);
+    else
+      return;
   }
 
   initializePlayboard() {
