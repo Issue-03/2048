@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Tile } from '../models/tile.model';
 import { Direction } from '../models/direction';
@@ -94,8 +95,8 @@ export class GameService {
   }
 
   moveTiles(direction: Direction): Observable<any> {
-    return MOVE_CONTROLLER[direction](direction === Direction.LEFT || direction === Direction.RIGHT ? this.columns : this.rows)
-      .map((mergedScore: number) => { this.score += mergedScore; return this.score; });
+    return MOVE_CONTROLLER[direction](direction === Direction.LEFT || direction === Direction.RIGHT ? this.columns : this.rows).pipe(
+      map((mergedScore: number) => { this.score += mergedScore; return this.score; }));
   }
 
   randomizeGame() {

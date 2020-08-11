@@ -1,25 +1,42 @@
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/from';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/delay';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/pairwise';
+// import { Observable } from 'rxjs/Observable';
+// import 'rxjs/add/observable/from';
+// import 'rxjs/add/observable/of';
+// import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/delay';
+// import 'rxjs/add/operator/mergeMap';
+// import 'rxjs/add/operator/pairwise';
 
 import { Direction } from '../models/direction';
 import { Tile } from '../models/tile.model';
+import { from, Observable, of } from 'rxjs';
+import { mergeMap, pairwise, delay, map } from 'rxjs/operators';
 
 // to merge the  tiles 
 function mergeTiles(operands: Tile[][][]): Observable<any> {
-    return Observable.from(operands)
-        .mergeMap(operand => {
-            let delayTime = 0;
-            return Observable.from(operand).pairwise().mergeMap(pair => {
-                delayTime += 50;
-                return Observable.of(pair).delay(delayTime);
-            });
-        })
-        .map(([op1, op2]) => calculateScores(op2, op1));
+    // return Observable.from(operands)
+    //     .mergeMap(operand => {
+    //         let delayTime = 0;
+    //         return Observable.from(operand).pairwise().mergeMap(pair => {
+    //             delayTime += 50;
+    //             return Observable.of(pair).delay(delayTime);
+    //         });
+    //     })
+    //     .map(([op1, op2]) => calculateScores(op2, op1));
+
+    return from(operands)
+        .pipe(
+            mergeMap(operand => {
+                let delayTime = 0;
+                return from(operand).pipe(
+                    pairwise(),
+                    mergeMap(pair => {
+                        delayTime += 50;
+                        return of(pair).pipe(delay(delayTime));
+                    })
+                );
+            }),
+            map(([op1, op2]) => calculateScores(op2, op1))
+        );
 }
 
 // calculates score after merging the tiles
