@@ -24,6 +24,8 @@
 
 #btn-wrapper {
   margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .btn {
@@ -32,8 +34,8 @@
   color: #f9f6f2;
   border-radius: 3px;
   border: 0px;
-  padding: 8px 13px 10px 13px;
-  margin-right: 20px;
+  padding: 8px 10px 10px 10px;
+  margin-right: 10px;
 }
 
 .btn:hover {
@@ -45,9 +47,25 @@
   background-color: rgb(46, 147, 165);
 }
 
+#undo {
+  background-color: rgb(128, 51, 21);
+}
+
+#redo {
+  background-color: rgb(34, 71, 109);
+}
+
 #new {
-  float: right;
   background-color: darkgreen;
+}
+
+button:disabled, button[disabled] {
+  background-color: rgba(155, 155, 155, 0.774) !important;
+}
+
+button[disabled]:hover {
+  opacity: 1;
+  border: none;
 }
 
 div#playboard, div#score, div#score-bar {
