@@ -12,10 +12,12 @@ import { Tile } from '../models/tile.model';
 export class PlayboardComponent implements OnInit {
 
   tiles: Tile[];
-  score: number = -1;
+  score: number = 0;
   isGameOver: boolean = false;
   isGameCompleted: boolean = false;
   lastTenScores: number[];
+  undoStack: { tiles: Tile[], score: number }[] = [];
+  redoStack: { tiles: Tile[], score: number }[] = [];
 
   constructor(private gameService: GameService) { }
 
@@ -36,6 +38,8 @@ export class PlayboardComponent implements OnInit {
       if (isMoveSuccess) this.gameService.randomizeGame();
       this.score = this.gameService.score;
       this.isGameOver = this.gameService.isGameOver;
+      this.pushIntoStack(this.tiles, this.score, 'undo');
+      this.redoStack = [];
     });
   }
 
@@ -69,9 +73,12 @@ export class PlayboardComponent implements OnInit {
     this.isGameCompleted = false;
     this.gameService.randomizeGame();
     this.tiles.map(tile => tile.success.subscribe(this.successHandler));
+    this.pushIntoStack(this.tiles, this.score, 'undo');
   }
 
   restartPlayboard() {
+    this.undoStack = [];
+    this.redoStack = [];
     this.score = 0;
     this.gameService.restartGame();
     this.initializePlayboard();
@@ -95,5 +102,48 @@ export class PlayboardComponent implements OnInit {
     this.gameService.saveData(this.gameService.score);
     this.gameService.loadData();
     this.refreshLastTenScores();
+  }
+
+  createTilesCopy(tiles: Tile[]): Tile[] {
+    let tilesCopy: Tile[] = Array(16).fill(null).map(_ => new Tile());
+    for (let i = 0; i < tiles.length; i++) {
+      Object.assign(tilesCopy[i], tiles[i]);
+    }
+    return tilesCopy;
+  }
+
+  pushIntoStack(tiles: Tile[], score: number, stack: string = 'redo') {
+    let tilesCopy: Tile[] = this.createTilesCopy(tiles);
+    if (stack == 'undo')
+      this.undoStack.push({ tiles: tilesCopy, score });
+    else
+      this.redoStack.push({ tiles: tilesCopy, score });
+  }
+
+  onUndo() {
+    // push the top undoStack to redoStack
+    let object = this.undoStack.pop();
+    this.pushIntoStack(object.tiles, object.score);
+    // take the top of undoStack and feed this state into game
+    object = this.undoStack[this.undoStack.length - 1];
+    let tilesCopy = this.createTilesCopy(object.tiles); 
+    this.tiles = tilesCopy;
+    this.score = object.score;
+    this.gameService.tiles = tilesCopy;
+    this.gameService.score = object.score;
+    this.gameService.initializeGame();
+  }
+
+  onRedo() {
+    // take the top of redoStack and feed this state into game
+    let object = this.redoStack.pop();
+    let tilesCopy = this.createTilesCopy(object.tiles); 
+    this.tiles = tilesCopy;
+    this.score = object.score;
+    this.gameService.tiles = tilesCopy;
+    this.gameService.score = object.score;
+    this.gameService.initializeGame();
+    // also push this state into undoStack
+    this.pushIntoStack(object.tiles, object.score, 'undo');
   }
 }

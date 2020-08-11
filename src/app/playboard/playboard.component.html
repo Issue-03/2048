@@ -13,8 +13,12 @@
             </div>
             <app-tile *ngFor="let tile of tiles" [tile]="tile"></app-tile>
             <div id="btn-wrapper">
-                <button id="save" class="btn" (click)="onSaveScore()">Save game</button>
-                <button id="new" class="btn" (click)="restartPlayboard()">New game</button>
+                <button type="button" id="save" class="btn" (click)="onSaveScore()">Save</button>
+                <button type="button" id="undo" class="btn" [disabled]="undoStack.length < 2" (click)="onUndo()">
+                    Undo</button>
+                <button type="button" id="redo" class="btn" [disabled]="redoStack.length < 1" (click)="onRedo()">
+                    Redo</button>
+                <button type="button" id="new" class="btn" (click)="restartPlayboard()">New</button>
             </div>
         </div>
     </div>
